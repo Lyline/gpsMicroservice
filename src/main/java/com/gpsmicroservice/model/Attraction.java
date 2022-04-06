@@ -15,4 +15,12 @@ public class Attraction extends Location{
     this.state = state;
     this.attractionId = UUID.randomUUID();
   }
+
+  public Attraction(UUID attractionId, String attractionName, String city, String state, double latitude, double longitude) {
+    super(latitude, longitude);
+    this.attractionName = attractionName;
+    this.city = city;
+    this.state = state;
+    this.attractionId = attractionId;
+  }
 }

@@ -1,9 +1,7 @@
-package com.gpsmicroservice.controller;
+package com.gpsmicroservice;
 
 import com.gpsmicroservice.model.Attraction;
 import com.gpsmicroservice.model.VisitedLocation;
-import com.gpsmicroservice.service.GpsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +11,16 @@ import java.util.UUID;
 
 @RestController
 public class GpsController {
-  @Autowired
-  private GpsService service;
+
+  private final GpsService service;
+
+  public GpsController(GpsService service) {
+    this.service = service;
+  }
 
   @GetMapping("/userLocation/{userId}")
   public VisitedLocation getUserLocation(@PathVariable UUID userId){
-    VisitedLocation location= service.getUserLocation(userId);
-
-    return location;
+    return service.getUserLocation(userId);
   }
 
   @GetMapping("/attractions")

@@ -1,4 +1,4 @@
-package com.gpsmicroservice.service;
+package com.gpsmicroservice;
 
 import com.gpsmicroservice.model.Attraction;
 import com.gpsmicroservice.model.Location;
@@ -14,17 +14,18 @@ import java.util.UUID;
 @Service
 public class GpsService {
 
-  private GpsUtil gps= new GpsUtil();
+  private final gpsUtil.GpsUtil gps;
+
+  public GpsService(GpsUtil gps) {
+    this.gps=gps;
+  }
 
   public VisitedLocation getUserLocation(UUID userId){
     Locale.setDefault(Locale.US);
     gpsUtil.location.VisitedLocation location= gps.getUserLocation(userId);
 
-    VisitedLocation visitedLocation= new VisitedLocation(userId,
-        new Location(location.location.latitude,location.location.longitude),
-        location.timeVisited);
-
-    return visitedLocation;
+    return new VisitedLocation(userId, new Location(location.location.latitude,location.location.longitude),
+                              location.timeVisited);
   }
 
   public List<Attraction> getAttractions(){
